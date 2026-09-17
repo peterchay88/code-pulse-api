@@ -1,4 +1,6 @@
 using CodePulse.API.Data;
+using CodePulse.API.Repositories.Implementation;
+using CodePulse.API.Repositories.Interface;
 using Microsoft.EntityFrameworkCore;
 
 DotNetEnv.Env.Load(); 
@@ -14,6 +16,8 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
     options.UseNpgsql(builder.Configuration.GetConnectionString("CodePulseConnectionString"));
 });
+
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 
 
 var app = builder.Build();
