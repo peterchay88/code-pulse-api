@@ -1,11 +1,16 @@
 @CodePulse.API_HostAddress = http://localhost:5026
 
+# Get all categories
 GET http://localhost:5026/api/Categories
 Accept: application/json
-
 ###
 
+# Get category by id
+GET http://localhost:5026/api/Categories/01a0d13d-a601-73f9-b15e-364ba26bda20
+Accept: application/json
+###
 
+# Post category
 POST http://localhost:5026/api/Categories
 Content-Type: application/json
 

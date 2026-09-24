@@ -20,4 +20,12 @@ public class CategoryRepository(ApplicationDbContext dbContext) : ICategoryRepos
         var categories = await dbContext.Categories.ToListAsync();
         return categories;
     }
+
+    public async Task<Category?> GetByIdAsync(Guid id)
+    {
+        var category = await dbContext.Categories
+            .Where(c => c.Id == id)
+            .FirstOrDefaultAsync();
+        return category;
+    }
 }

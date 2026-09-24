@@ -52,4 +52,25 @@ public class CategoriesController(ICategoryRepository categoryRepository) : Cont
         
         return Ok(getCategoriesList);
     }
+
+    [HttpGet]
+    [Route("{id:guid}")]
+    public async Task<IActionResult> GetCategoryById([FromRoute] Guid id)
+    {
+        var category = await categoryRepository.GetByIdAsync(id);
+        
+        if(category == null)
+        {
+            return NoContent();
+        }
+
+        var response = new CategoryDto
+        {
+            Id = category.Id,
+            Name = category.Name,
+            UrlHandle = category.UrlHandle
+        };
+        
+        return Ok(response);
+    }
 }
