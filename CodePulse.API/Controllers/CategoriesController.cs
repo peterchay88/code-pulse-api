@@ -32,4 +32,24 @@ public class CategoriesController(ICategoryRepository categoryRepository) : Cont
         
         return Ok(response);
     }
+
+    [HttpGet]
+    public async Task<IActionResult> GetCategories()
+    {
+        var categories = await categoryRepository.GetAllAsync();
+        var getCategoriesList = new List<CategoryDto>();
+
+        foreach (var category in categories)
+        {
+            var getCategoryRequest = new CategoryDto
+            {
+                Id = category.Id,
+                Name = category.Name,
+                UrlHandle = category.UrlHandle
+            };
+            getCategoriesList.Add(getCategoryRequest);
+        }
+        
+        return Ok(getCategoriesList);
+    }
 }
