@@ -28,4 +28,19 @@ public class CategoryRepository(ApplicationDbContext dbContext) : ICategoryRepos
             .FirstOrDefaultAsync();
         return category;
     }
+
+    public async Task<Category?> UpdateAsync(Category category)
+    {
+        var existingCategory = await dbContext.Categories.FirstOrDefaultAsync(c => c.Id == category.Id);
+
+        if (existingCategory == null)
+        {
+            return null;
+        }
+
+        existingCategory.Name = category.Name;
+        existingCategory.UrlHandle = category.UrlHandle;
+        await dbContext.SaveChangesAsync();
+        return existingCategory;
+    }
 }

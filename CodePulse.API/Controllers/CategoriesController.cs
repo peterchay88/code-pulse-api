@@ -73,4 +73,33 @@ public class CategoriesController(ICategoryRepository categoryRepository) : Cont
         
         return Ok(response);
     }
+
+    [HttpPut]
+    [Route("{id:guid}")]
+    public async Task<IActionResult> UpdateCategory([FromRoute] Guid id, [FromBody] UpdateCategoryDto request)
+    {
+        // Map DTO from request to category domain model
+        var category = new Category
+        {
+            Id = id,
+            Name = request.Name,
+            UrlHandle = request.UrlHandle
+        };
+        
+        var updatedCategory = await categoryRepository.UpdateAsync(category);
+
+        if (updatedCategory == null)
+        {
+            return NotFound();
+        }
+
+        var response = new CategoryDto
+        {
+            Id = updatedCategory.Id,
+            Name = updatedCategory.Name,
+            UrlHandle = updatedCategory.UrlHandle
+        };
+        
+        return Ok(response);
+    }
 }

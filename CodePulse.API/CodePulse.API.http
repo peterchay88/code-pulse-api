@@ -18,3 +18,15 @@ Content-Type: application/json
   "name": "New Category",
   "urlHandle": "This is a new category."
 }
+
+###
+
+# Put category
+
+PUT http://localhost:5026/api/Categories/01a0d13d-a601-73f9-b15e-364ba26bda20
+Content-Type: application/json
+
+{
+    "name": "Updated Category test 2",
+    "urlHandle": "This is an updated category test 2."
+}
